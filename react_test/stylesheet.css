@@ -1,0 +1,124 @@
+
+table {
+	border-bottom: 2px solid black;
+	border-top:  2px solid black;
+	border-left: 2px solid black;
+	border-right: 2px solid black; 
+	/*margin: 5px;*/
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin: 10px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    box-shadow: 5px 10px 5px #777777;
+    width: 1000px;
+
+}
+
+tr {
+	/*background-color: LightBlue;*/
+	border-bottom: 2px solid black;
+	border-top:  2px solid black;
+	border-left: 2px solid black;
+	border-right: 2px solid black; 
+	/*margin: 5px;*/
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+/*    font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;
+    border-radius: 5px;*/
+}
+td{
+	background-color: LightBlue;
+	/*border-bottom: 2px solid black;*/
+	/*border-top:  2px solid black;*/
+	/*border-left: 2px solid black;*/
+	/*border-right: 2px solid black; */
+	/*margin: 5px;*/
+	/*margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;*/
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+    /*border-radius: 5px;*/
+
+
+}
+
+th {
+	background-color: LightGrey;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+	text-align: center;
+	font-size: 15pt;
+	/*border-radius: 5px;*/
+
+	cursor: pointer;
+}
+
+.highlight {
+    background-color:#556677;
+    font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+}
+
+form {
+	display: inline-block;
+	margin-top: 10px;
+}
+
+#button {
+    display: inline-block;
+    height:20px;
+	width:70px;
+	background-color:#cc0000;
+	font-family:arial;
+	font-weight:bold;
+	color:#ffffff;
+	border-radius: 5px;
+	text-align:center;
+	margin-top:100px;
+}
+
+ol {
+	font-family:garamond;
+	color:#cc0000;
+	width: 200px;
+	height: 20px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.container {
+	display: inline-block;
+    height:20px;
+	width:70px;
+	background-color:#cc0000;
+	font-family:arial;
+	font-weight:bold;
+	color:#ffffff;
+	border-radius: 5px;
+	text-align:center;
+	margin-top:2px;
+	margin-bottom: 10px;
+}
+
+.modal-box {
+ 	display: none;
+	position: absolute;
+	z-index: 1000;
+	width: 98%;
+	background: white;
+	border-bottom: 1px solid #aaa;
+	border-radius: 4px;
+	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	background-clip: padding-box;
+}
+ 
