@@ -57,7 +57,7 @@ var SecondaryDropdown = React.createClass({
 
 		return (
 			<div id = "mainForm">	
-				<div className="ui floating dropdown labeled icon button" style={{"width" : "200px" , "height" : "40px"}}>
+				<div className="ui floating dropdown labeled icon button" style={{"width" : "250" , "height" : "40px"}}>
 				  <i className="exchange icon"></i>
 				  <span className="text">Get Tokens</span>
 				  <div className="menu">
@@ -94,8 +94,8 @@ var SecondaryDropdown = React.createClass({
 var BasicForm = React.createClass({
 	render: function() {
 		var tokens = [
-		{id: 1, label: 'User Token', accid: 123456, token: 'CCAAsdfjhgsdfkgLKF', icon: 'user icon'},
-		{id: 2, label: 'Page Tokens', accid: 234567, token: 'CCAAHDNDFfkgLKF', icon: 'flag icon'},
+		{id: 1, label: 'Get User Token', accid: 123456, token: 'CCAAsdfjhgsdfkgLKF', icon: 'user icon'},
+		{id: 2, label: 'Get Page Token', accid: 234567, token: 'CCAAHDNDFfkgLKF', icon: 'flag icon'},
 		{id:99, label: '', accid: '', token: ''}
 
 		];
@@ -212,7 +212,14 @@ $(document).ready(function() {
 		{id: 3, label: 'Primoris', accid: 152135},
 		{id: 4, label: 'Facebook', accid: 178456}
 	];
+
+	// Rendering the fb integration form
 	React.render(<App />, document.querySelector('#firstDropdown'));
+
+	// Initialising the accordian - Information box
+	$('.ui.accordion')
+	.accordion();
+
 	// React.render(<BasicForm />, document.querySelector('#firstDropdown'))
 	// window.fbAsyncInit = function() {
 	// 	FB.init({
