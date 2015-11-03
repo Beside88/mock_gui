@@ -3,11 +3,6 @@
 <head>
 <title>Facebook Login JavaScript Example</title>
 <meta charset="UTF-8">
-<link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css'/>
-<!-- Scripts begin -->
-    <script src="http://fb.me/react-0.12.2.js"></script>
-    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
-    <!-- Scripts end -->
 </head>
 <body>
 <script>
@@ -45,7 +40,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '145634995501895',
+    appId      : 145634995501895,
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -65,11 +60,7 @@
   // These three cases are handled in the callback function.
 
   FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') {
-    console.log(response.authResponse.accessToken);
-    }
     statusChangeCallback(response);
-    
   });
 
   };
@@ -93,6 +84,17 @@
         'Thanks for logging in, ' + response.name + '!';
     });
   }
+
+  FB.login(function(response) {
+    if (response.authResponse) {
+     console.log('Welcome!  Fetching your information.... ');
+     FB.api('/me', function(response) {
+       console.log('Good to see you, ' + response.name + '.');
+     });
+    } else {
+     console.log('User cancelled login or did not fully authorize.');
+    }
+});
 </script>
 
 <!--
@@ -105,7 +107,6 @@
 </fb:login-button>
 
 <div id="status">
-
 </div>
 
 </body>

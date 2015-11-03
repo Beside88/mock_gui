@@ -242,7 +242,7 @@ $(document).ready(function() {
 		}(document, 'script', 'facebook-jssdk'));
 
 		FB.init({
-		    appId      : '145634995501895',
+		    appId      : '1502596746700936',
 		    status     : true,
 		    xfbml      : true,
 		    version    : 'v2.5' // or v2.0, v2.1, v2.2, v2.3
@@ -270,7 +270,8 @@ $(document).ready(function() {
 		  method: 'share_open_graph',
 		  action_type: 'og.likes',
 		  action_properties: JSON.stringify({
-		    object:'https://developers.facebook.com/docs/facebook-login/',
+		    // object:'https://developers.facebook.com/docs/facebook-login/',
+		    object:'http://beside13.faceboo.com/',
 		  })
 		}, function(response){
 		  // Debug response (optional)
