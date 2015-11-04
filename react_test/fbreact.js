@@ -210,6 +210,7 @@ $(document).ready(function() {
 		{id: 1, label: 'Site Lantern', accid: 123456},
 		{id: 2, label: 'Blitzkrieg', accid: 234567},
 		{id: 3, label: 'Primoris', accid: 152135},
+		{id: 3, label: 'Beside', accid: 152135},
 		{id: 4, label: 'Facebook', accid: 178456}
 	];
 
@@ -220,24 +221,24 @@ $(document).ready(function() {
 	$('.ui.accordion')
 	.accordion();
 
-	// React.render(<BasicForm />, document.querySelector('#firstDropdown'))
-	// window.fbAsyncInit = function() {
-	// 	FB.init({
-	// 		appId      : '145634995501895',
-	// 		xfbml      : true,
-	// 		version    : 'v2.5'
-	// 	});
-	// };
-
-
-
 	$('#loginfb').on('click', function() {
 		console.log("Login is clicked");
-		(function(d, s, id) {
+
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '1502596746700936',
+				xfbml      : true,
+				version    : 'v2.5'
+			});
+    // ADD ADDITIONAL FACEBOOK CODE HERE
+		};
+
+
+		(function(d, s, id){
 			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
+			if (d.getElementById(id)) {return;}
 			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+			js.src = "//connect.facebook.net/en_US/sdk.js";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 
@@ -248,34 +249,54 @@ $(document).ready(function() {
 		    version    : 'v2.5' // or v2.0, v2.1, v2.2, v2.3
 		});
 
+		function onLogin(response) {
+			if (response.status == 'connected') {
+				FB.api('/me?fields=first_name', function(data) {
+					var welcomeBlock = document.getElementById('fb-welcome');
+					welcomeBlock.innerHTML = 'Hello, ' + data.first_name + '!';
+				});
+			}
+		}
+
 		FB.getLoginStatus(function(response) {
-		  if (response.status === 'connected') {
-		    console.log('Logged in.');
-		  }
-		  else {
-		    FB.login();
-		  }
+  // Check login status on load, and if the user is
+		  // already logged in, go directly to the welcome message.
+		  if (response.status == 'connected') {
+		  	onLogin(response);
+		  } else {
+		    // Otherwise, show Login dialog first.
+			    FB.login(function(response) {
+			    	onLogin(response);
+			    }, {scope: 'user_friends, email'});
+			}
 		});
+
 		/* make the API call */
 		FB.api(
-			'/me',
-			'GET',
-			{"fields":"id,name"},
-			function(response) {
-      // Insert your code here
-		  }
+			"/me/accounts",
+			function (response) {
+				if (response && !response.error) {
+					/* handle the result */
+				}
+			}
 		);
-
+		// FB.ui({
+		//   method: 'share_open_graph',
+		//   action_type: 'og.likes',
+		//   action_properties: JSON.stringify({
+		//     // object:'https://developers.facebook.com/docs/facebook-login/',
+		//     object:'https://apps.facebook.com/1502597476700863/',
+		//   })
+		// }, function(response){
+		//   // Debug response (optional)
+		//   console.log(response);
+		// });
 		FB.ui({
-		  method: 'share_open_graph',
-		  action_type: 'og.likes',
-		  action_properties: JSON.stringify({
-		    // object:'https://developers.facebook.com/docs/facebook-login/',
-		    object:'http://beside13.faceboo.com/',
-		  })
+			method: 'feed',
+			link: 'https://developers.facebook.com/docs/facebook-login/',
+			caption: 'An example caption',
 		}, function(response){
-		  // Debug response (optional)
-		  console.log(response);
+			console.log(response);
 		});
 	});
 });
