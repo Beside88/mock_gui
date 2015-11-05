@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- Document begins -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fb 2</title>
+	<!-- Stylesheets begin-->
+	<!-- <link rel='stylesheet' type='text/css' href='stylesheet.css'/> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css'/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.js"></script>
+	<!-- Stylesheets end -->
+	<!-- Scripts begin -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+	<!-- <script src ='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js'></script> -->
+	<!-- Scripts end -->
+</head>
+<body>
+
+
+ 	 <div class="ui button" id = "myb" tabindex="0">
+	  <div class="ui button">
+	    <i class="plus square outline icon"></i> Log in
+	  </div>
+	</div>
+	<div id="fb-root"></div>
+	<a href='#' onclick='login();'>Facebook Login</a>
+	<script type="text/javascript">
+	//<![CDATA[
+		console.log("Login is clicked")
+		window.fbAsyncInit = function() {
+			FB.init({
+		     appId      : '{}', // App ID
+		     channelURL : '', // Channel File, not required so leave empty
+		     status     : true, // check login status
+		     cookie     : true, // enable cookies to allow the server to access the session
+		     oauth      : true, // enable OAuth 2.0
+		     xfbml      : false  // parse XFBML
+		 });
+		};
+		// logs the user in the application and facebook
+		function login(){
+			FB.getLoginStatus(function(r){
+				if(r.status === 'connected'){
+					window.location.href = 'fbconnect.php';
+				}else{
+					FB.login(function(response) {
+						if(response.authResponse) {
+		              //if (response.perms)
+		              window.location.href = 'fbconnect.php';
+		          } else {
+		              // user is not logged in
+		          }
+		     },{scope:'email'}); // which data to access from user profile
+				}
+			});
+		}
+		// Load the SDK Asynchronously
+		(function() {
+			var e = document.createElement('script'); e.async = true;
+			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';                
+			document.getElementById('fb-root').appendChild(e);
+		}());
+	//]]>
+</script>
+
+
+</body>
+</html>
+<!-- End of the document -->

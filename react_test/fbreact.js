@@ -226,7 +226,7 @@ $(document).ready(function() {
 
 		window.fbAsyncInit = function() {
 			FB.init({
-				appId      : '1502596746700936',
+				appId      : '194780344188905',
 				xfbml      : true,
 				version    : 'v2.5'
 			});
@@ -243,7 +243,7 @@ $(document).ready(function() {
 		}(document, 'script', 'facebook-jssdk'));
 
 		FB.init({
-		    appId      : '1502596746700936',
+		    appId      : '194780344188905',
 		    status     : true,
 		    xfbml      : true,
 		    version    : 'v2.5' // or v2.0, v2.1, v2.2, v2.3
@@ -251,10 +251,14 @@ $(document).ready(function() {
 
 		function onLogin(response) {
 			if (response.status == 'connected') {
+				console.log("It is logged in");
 				FB.api('/me?fields=first_name', function(data) {
 					var welcomeBlock = document.getElementById('fb-welcome');
 					welcomeBlock.innerHTML = 'Hello, ' + data.first_name + '!';
 				});
+			}
+			else {
+				console.log("It is not logged in");
 			}
 		}
 
@@ -267,7 +271,7 @@ $(document).ready(function() {
 		    // Otherwise, show Login dialog first.
 			    FB.login(function(response) {
 			    	onLogin(response);
-			    }, {scope: 'user_friends, email'});
+			    }, {scope: 'user_friends, email, access_token'});
 			}
 		});
 
@@ -277,6 +281,8 @@ $(document).ready(function() {
 			function (response) {
 				if (response && !response.error) {
 					/* handle the result */
+					console.log("Priting Stuff Below");
+					console.log(response);
 				}
 			}
 		);
@@ -296,6 +302,8 @@ $(document).ready(function() {
 			link: 'https://developers.facebook.com/docs/facebook-login/',
 			caption: 'An example caption',
 		}, function(response){
+			console.log("I am here");
+			// alert('Name is ' + response.name);
 			console.log(response);
 		});
 	});

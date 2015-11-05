@@ -101,7 +101,7 @@ var FilteredList = React.createClass({
 var List = React.createClass({
   render: function(){
     return (
-      <div className="ui inverted vertical pointing menu">
+      <div className="ui vertical pointing menu">
       {
         this.props.items.map(function(item) {
           return  <div className="item" > 
