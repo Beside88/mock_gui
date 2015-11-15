@@ -8,7 +8,7 @@ var BasicDropdown = React.createClass({
 
 		return (
 			<div id = "mainForm">	
-				<div className="ui floating dropdown labeled icon button" style={{"width" : "320px" , "height" : "40px"}}>
+				<div className="ui floating dropdown labeled icon button base" style={{"width" : "320px" , "height" : "40px"}}>
 				  <i className="icon book"></i>
 				  <span className="text">Select an Account</span>
 				  <div className="menu">
@@ -18,6 +18,11 @@ var BasicDropdown = React.createClass({
 				    </div>
 				    <div className="scrolling menu">
 				    	{items}
+				    	<div className="clear-button" id = "clear">
+				    		<button className="ui basic button" id="clear-menu" style={{"width" : "320px"}}>
+				    			Clear
+				    		</button>
+				    	</div>
 				    </div>
 				  </div>
 				</div>
@@ -73,7 +78,6 @@ var SecondaryDropdown = React.createClass({
 	getDefaultProps: function() {
 		return {
 			items: [],
-
 			onChange: function() {}
 		};
 	},
@@ -96,8 +100,6 @@ var BasicForm = React.createClass({
 		var tokens = [
 		{id: 1, label: 'Get User Token', accid: 123456, token: 'CCAAsdfjhgsdfkgLKF', icon: 'user icon'},
 		{id: 2, label: 'Get Page Token', accid: 234567, token: 'CCAAHDNDFfkgLKF', icon: 'flag icon'},
-		{id:99, label: '', accid: '', token: ''}
-
 		];
 		// var accid = this.props.accid
 		// var accname = this.props.accname
@@ -109,19 +111,19 @@ var BasicForm = React.createClass({
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Account Name</div>
-				    <input type="text" placeholder="Type Account Name" style={{"width" : "200px", "height" : "40px"}} value = {item.label}></input>
+				    <input className = "fbinputfield" type="text" placeholder="Type Account Name" style={{"width" : "200px", "height" : "40px"}} value = {item.label}></input>
 				  </div>
 				</div>
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Account ID</div>
-				    <input type="text" placeholder="Type Account ID" style={{"width" : "200px" , "height" : "40px"}} value = {item.accid}></input>
+				    <input className = "fbinputfield" type="text" placeholder="Type Account ID" style={{"width" : "200px" , "height" : "40px"}} value = {item.accid}></input>
 				  </div>
 				</div>
 				<div className="field">
 				  <div className="detail-element ui labeled input">
-				    <div className="ui label" style={{"width" : "120px"}} >Access Token</div>
-				    <input type="text" placeholder="Get Access Token" style={{"width" : "200px" , "height" : "40px"}} value = {item.token}> </input>
+				    <div className="ui label" style={{"width" : "120px"}}>Access Token</div>
+				    <input className = "fbinputfield" type="text" placeholder="Get Access Token" style={{"width" : "200px" , "height" : "40px"}} value = {item.token}> </input>
 				    
 
 				    <div>
@@ -134,6 +136,11 @@ var BasicForm = React.createClass({
 				  <button className="ui button" id="loginfb">
   					<i className="sign in icon"></i>
   					Login
+				  </button>
+
+				  <button className="ui button" id="clear-form">
+  					<i className="refresh icon"></i>
+  					Clear
 				  </button>
 				</div>
 
@@ -182,7 +189,6 @@ var App = React.createClass({
 			{id: 2, label: 'Blitzkrieg', accid: 234567, token: 'CCAAHDNDFfkgLKF'},
 			{id: 3, label: 'Primoris', accid: 152135, token: 'CCAALSDFJDSGdfkgLKF'},
 			{id: 4, label: 'Facebook', accid: 178456, token: 'CCAAsdfDSPGVJFDGfkgLKF'},
-			{id:99, label: ' ', accid: ' ', token: ' '}
 		];
 
 		return (
@@ -220,6 +226,17 @@ $(document).ready(function() {
 	// Initialising the accordian - Information box
 	$('.ui.accordion')
 	.accordion();
+
+	$('#clear-menu').on('click', function() {
+		$('.dropdown').dropdown('restore defaults');
+	});
+
+	$('#clear-form').on('click', function() {
+		$('.dropdown').dropdown('restore defaults');
+		$('.fbinputfield')[0].value = '';
+		$('.fbinputfield')[1].value = '';
+		$('.fbinputfield')[2].value = '';
+	});
 
 	$('#loginfb').on('click', function() {
 		console.log("Login is clicked");
