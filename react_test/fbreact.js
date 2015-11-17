@@ -111,19 +111,22 @@ var BasicForm = React.createClass({
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Account Name</div>
-				    <input className = "fbinputfield" type="text" placeholder="Type Account Name" style={{"width" : "200px", "height" : "40px"}} value = {item.label}></input>
+				    <input className = "fbinputfield" type="text" placeholder="Type Account Name" 
+				    		style={{"width" : "200px", "height" : "40px"}} value = {item.label} contenteditable="true"></input>
 				  </div>
 				</div>
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Account ID</div>
-				    <input className = "fbinputfield" type="text" placeholder="Type Account ID" style={{"width" : "200px" , "height" : "40px"}} value = {item.accid}></input>
+				    <input className = "fbinputfield" type="text" placeholder="Type Account ID" 
+				    		style={{"width" : "200px" , "height" : "40px"}} value = {item.accid} contenteditable="true"></input>
 				  </div>
 				</div>
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Access Token</div>
-				    <input className = "fbinputfield" type="text" placeholder="Get Access Token" style={{"width" : "200px" , "height" : "40px"}} value = {item.token}> </input>
+				    <input className = "fbinputfield" type="text" placeholder="Get Access Token" 
+				    		style={{"width" : "200px" , "height" : "40px"}} contenteditable="true"> </input>
 				    
 
 				    <div>
@@ -141,6 +144,13 @@ var BasicForm = React.createClass({
 				  <button className="ui button" id="clear-form">
   					<i className="refresh icon"></i>
   					Clear
+				  </button>
+				</div>
+
+				<div>
+				  <button className="ui button" id="add-account">
+  					<i className="add user icon"></i>
+  					Add
 				  </button>
 				</div>
 
@@ -171,7 +181,7 @@ var App = React.createClass({
 		return {
 			// dropdownValue: '', 
 			// items: [],
-			count: 100
+			count: ''
 		};
 	},
 
@@ -198,7 +208,7 @@ var App = React.createClass({
 					onChange={this.dropdownValueChanged}>
 				</BasicDropdown>
 				<BasicForm
-					item = {accounts[this.state.count]} >
+					item = {accounts[this.state.count]}>
 				</BasicForm>
 			</div>
 		);
