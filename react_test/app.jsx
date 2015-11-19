@@ -32,16 +32,10 @@ var MyComponent = React.createClass({
         });
     }, 
     decrementCount: function(){
-        if (this.state.count == 0 ){
-            this.setState({
-                count: 0
-            });
-        }
-        else{
-            this.setState({
-                count: this.state.count - 1
-            });
-        }
+        this.setState({
+            count: this.state.count - 1
+        });
+
     },
     resetCount: function(){
         this.setState({

@@ -1,4 +1,4 @@
-// BasicDopdown class ============================================================
+// BasicDopdown object ============================================================
 var BasicDropdown = React.createClass({
 	render: function() {
 		var items = this.props.items.map(function(item, index, token) {
@@ -51,7 +51,7 @@ var BasicDropdown = React.createClass({
 	}
 });
 
-// BasicDopdown class ============================================================
+// BasicDopdown object ============================================================
 var SecondaryDropdown = React.createClass({
 	render: function() {
 		var items = this.props.items.map(function(item, index, token) {
@@ -94,12 +94,12 @@ var SecondaryDropdown = React.createClass({
 			});
 	}
 });
-// Basic form class ==========================================================
+// Basic form object ==========================================================
 var BasicForm = React.createClass({
 	render: function() {
 		var tokens = [
-		{id: 1, label: 'Get User Token', accid: 123456, token: '', icon: 'user icon'},
-		{id: 2, label: 'Get Page Token', accid: 234567, token: '', icon: 'flag icon'},
+		{id: 1, label: 'Get User Token', accid: 123456, token: 'CCAAsdfjhgsdfkgLKF', icon: 'user icon'},
+		{id: 2, label: 'Get Page Token', accid: 234567, token: 'CCAAHDNDFfkgLKF', icon: 'flag icon'},
 		];
 		// var accid = this.props.accid
 		// var accname = this.props.accname
@@ -111,26 +111,24 @@ var BasicForm = React.createClass({
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Account Name</div>
-				    <input className = "fbinputfield" type="text" placeholder="Type Account Name" id="aName"
-				    		value = {item.label} //onChange={this.onDataChanged.bind(this, 'name')}
-				    		style={{"width" : "200px", "height" : "40px"}}></input>
+				    <input className = "fbinputfield" type="text" placeholder="Type Account Name" 
+				    		style={{"width" : "200px", "height" : "40px"}} value = {item.label} contenteditable="true"></input>
 				  </div>
 				</div>
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Account ID</div>
-				    <input className = "fbinputfield" type="text" placeholder="Type Account ID" id="aID"
-				    		value = {item.accid} //onChange={this.onDataChanged.bind(this, 'id')}
-				    		style={{"width" : "200px" , "height" : "40px"}}></input>
+				    <input className = "fbinputfield" type="text" placeholder="Type Account ID" 
+				    		style={{"width" : "200px" , "height" : "40px"}} value = {item.accid} contenteditable="true"></input>
 				  </div>
 				</div>
 				<div className="field">
 				  <div className="detail-element ui labeled input">
 				    <div className="ui label" style={{"width" : "120px"}}>Access Token</div>
-				    <input className = "fbinputfield" type="text" placeholder="Get Access Token" id="aToken" 
-				    		value = {item.token} onChange = {this.onDataChanged.bind(this, 'token')}
-				    		style={{"width" : "200px" , "height" : "40px"}}> </input>
+				    <input className = "fbinputfield" type="text" placeholder="Get Access Token" 
+				    		style={{"width" : "200px" , "height" : "40px"}} contenteditable="true"> </input>
 				    
+
 				    <div>
 				    <SecondaryDropdown items={tokens} ></SecondaryDropdown>
 				    </div>
@@ -150,9 +148,9 @@ var BasicForm = React.createClass({
 				</div>
 
 				<div>
-				  <button className="ui button" id="add-account" onClick = {this.saveItem}>
-  					<i className="save icon"></i>
-  					Save
+				  <button className="ui button" id="add-account">
+  					<i className="add user icon"></i>
+  					Add
 				  </button>
 				</div>
 
@@ -164,24 +162,10 @@ var BasicForm = React.createClass({
 		return {
 			// accid: null,
 			// accname: '',
-			item: {},
-			onDataChanged: function() {},
-			saveItem: function() {},
-			currentToken: ''
+			item: ''
 		};
 	},
 
-	saveItem: function() {
-		// this.props.addItem(name, id, token);
-	},
-
-	onDataChanged: function (key, e) {
-		var oldData = this.props.item;
-		oldData[key] = e.target.value;
-		currentToken = oldData[key]
-		console.log(currentToken);
-		this.props.onDataChanged(oldData);
-	}
 
 });
 
@@ -197,14 +181,7 @@ var App = React.createClass({
 		return {
 			// dropdownValue: '', 
 			// items: [],
-			id: '',
-
-			accounts: [
-			{id: 1, label: 'Site Lantern', accid: 123456, token: 'CCAAsdfjhgsdfkgLKF'},
-			{id: 2, label: 'Blitzkrieg', accid: 234567, token: 'CCAAHDNDFfkgLKF'},
-			{id: 3, label: 'Primoris', accid: 152135, token: 'CCAALSDFJDSGdfkgLKF'},
-			{id: 4, label: 'Facebook', accid: 178456, token: 'CCAAsdfDSPGVJFDGfkgLKF'}
-			]
+			count: ''
 		};
 	},
 
@@ -212,54 +189,36 @@ var App = React.createClass({
 		// console.log('I am inside App', value, text, $selectedItem);
 		// console.log('I am inside', parseInt(value)-1);
 		// this.setState({dropdownValue: parseInt(value)-1});
-		this.setState({id: parseInt(value)});
-		this.accountForId
-		// console.log('Text is ', value);
-	},
-
-	onDataChanged: function(newData) {
-		var accounts = this.state.accounts;
-
-		// Find the account with the matching ID as new Data
-		accounts = accounts.map(function(account) {
-			if (account.id === newData.id)
-				return newData;
-			else
-				return account;
-		});
-		// Using for loop 
-		// for (var i=0;i<accounts.length;i++) {
-		// 	if (accounts[i].id === newData.id)
-		// 		accounts[i] = newData;
-		// }
-
-		this.setState({accounts: accounts});
-
-	},
-
-	accountForId: function(id) {
-		// Takes an id, and returns the account with that id
-		for (var i=0;i<this.state.accounts.length;i++)
-			if (this.state.accounts[i].id === id)
-				return this.state.accounts[i];
+		this.setState({count: parseInt(value)-1});
+		// console.log('Value is ',this.state.dropdownValue);
 	},
 
 	render: function() {
+		var accounts = [
+			{id: 1, label: 'Site Lantern', accid: 123456, token: 'CCAAsdfjhgsdfkgLKF'},
+			{id: 2, label: 'Blitzkrieg', accid: 234567, token: 'CCAAHDNDFfkgLKF'},
+			{id: 3, label: 'Primoris', accid: 152135, token: 'CCAALSDFJDSGdfkgLKF'},
+			{id: 4, label: 'Facebook', accid: 178456, token: 'CCAAsdfDSPGVJFDGfkgLKF'},
+		];
+
 		return (
 			<div>
 				<BasicDropdown 
-					items={this.state.accounts} 
+					items={accounts} 
 					onChange={this.dropdownValueChanged}>
 				</BasicDropdown>
 				<BasicForm
-					item = {this.accountForId(this.state.id)}
-					onDataChanged= {this.onDataChanged}>
+					item = {accounts[this.state.count]}>
 				</BasicForm>
 			</div>
 		);
 
 	}
 });
+
+					// accid={items[this.state.count].accid} 
+					// accname={items[this.state.count].label}>
+					// token = {items[this.state.]}
 
 // Drawing the objects ===============================================
 $(document).ready(function() {
@@ -349,7 +308,7 @@ $(document).ready(function() {
 			function (response) {
 				if (response && !response.error) {
 					/* handle the result */
-					console.log("Printing Stuff Below");
+					console.log("Priting Stuff Below");
 					console.log(response);
 				}
 			}
