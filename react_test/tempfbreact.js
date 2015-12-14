@@ -281,7 +281,7 @@ $(document).ready(function() {
 	$('#clear-menu').on('click', function() {
 		$('.dropdown').dropdown('restore defaults');
 	});
- 
+
 	$('#clear-form').on('click', function() {
 		$('.dropdown').dropdown('restore defaults');
 		$('.fbinputfield')[0].value = '';
@@ -290,12 +290,17 @@ $(document).ready(function() {
 	});
 
 	$('#loginfb').on('click', function() {
-		console.log("Login is clicked"); 
-		FB.init({
-			appId      : '1517971371855482',
-			xfbml      : true,
-			version    : 'v2.5'
-		});
+		console.log("Login is clicked");
+
+		// window.fbAsyncInit = function() {
+		// 	FB.init({
+		// 		appId      : '1517971371855482',
+		// 		xfbml      : true,
+		// 		version    : 'v2.5'
+		// 	});
+  //   // ADD ADDITIONAL FACEBOOK CODE HERE
+		// };
+
 
 		(function(d, s, id){
 			var js, fjs = d.getElementsByTagName(s)[0];
@@ -305,35 +310,93 @@ $(document).ready(function() {
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 
+		FB.init({
+		    appId      : '1520343321618287',
+		    status     : true,
+		    xfbml      : true,
+		    version    : 'v2.5' // or v2.0, v2.1, v2.2, v2.3
+		});
+
+		function onLogin(response) {
+			if (response.status == 'connected') {
+				console.log("It is logged in");
+				FB.api('/me?fields=first_name', function(data) {
+					var welcomeBlock = document.getElementById('fb-welcome');
+					// welcomeBlock.innerHTML = 'Hello, ' + data.first_name + '!';
+				});
+			}
+			else {
+				console.log("It is not logged in");
+			}
+		}
+		
+
 		FB.getLoginStatus(function(response) {
-			if (response.status === 'connected') {
-				console.log("I am here");
-				var accessToken = response.authResponse.accessToken;
-				var appName = response.authResponse.name;
-				console.log(response);
-				console.log(accessToken);
-			} 
-		} );
+  // Check login status on load, and if the user is
+		  // already logged in, go directly to the welcome message.
+		  console.log("Inside Log in status function");
+		  if (response.status === 'connected') {
+			console.log("Inside if connected");
+			var accessToken = response.authResponse.accessToken;
+			console.log(accessToken);
+			console.log("Access Token");
+		  	onLogin(response);
+		  } 
+		  // else {
+		 //    // Otherwise, show Login dialog first.
+			//     FB.login(function(response) {
+			//     	console.log("Inside FB.login");
+			//     	// onLogin(response);
+			//     }, {scope: 'user_friends, email'});
+			// }
+		});
 
-		var global_token = '';
-		FB.login(function(response){ 
-			FB.api('/me/accounts', function(response){ 
-				console.log(response);
-				var data_length = response.data.length
-				console.log();
+// FB API =========================================================================================
+		// /* make the API call */
+		// FB.api(
+		// 	'/me',
+		// 	'GET',
+		// 	{"fields":"id,name,access_token"},
+		// 	function(response) {
+  //     // Insert your code here
+  //     			console.log("I am inside api");
+  //     			console.log(response);
+  //     			console.log(response['access_token']);
+		//  	}
+		// );
 
-				for (var i = 0; i < data_length; i++) {
-					var p_accessToken = response.data[i].access_token; 
-					var p_name = response.data[i].name;
-					console.log('The pagename is:'
-					           + p_name + 'Page access token is ' 
-					           + p_accessToken);
-					global_token = p_accessToken;
-				};
-			});
-		},{scope:"read_insights"}); 
+		/* make the API call */
+		FB.api(
+			"/{user-id}",
+			function (response) {
+				if (response && !response.error) {
+					/* handle the result */
+				}
+			}
+			);
 
-
-
+// FB UI ====================================================================================
+		// FB.ui({
+		//   method: 'share_open_graph',
+		//   action_type: 'og.likes',
+		//   action_properties: JSON.stringify({
+		//     object:'https://developers.facebook.com/docs/facebook-login/',
+		//     // object:'http://blitzkriegsrilanka.wix.com/blitzkriegstudio',
+		//   })
+		// }, function(response){
+		//   // Debug response (optional)
+		//   console.log(response);
+		// });
+		FB.ui({
+			method: 'feed',
+			// link: 'https://www.facebook.com/connect/blank.html#_=_',
+			// link: 'https://developers.facebook.com/docs/facebook-login/',
+			link: 'http://localhost/',
+			caption: 'An example caption',
+		}, function(response){
+			console.log("I am here");
+			// alert('Name is ' + response.name);
+			console.log(response);
+		});
 	});
 });
